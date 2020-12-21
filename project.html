@@ -1,110 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta NAME="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mileage Manager</title>
-    </head>
-    <body>
-        <div style="width: 30%; border-width: 1px; border-radius: 2%; border-style: solid; border-color: black;padding: 1% 1% 1% 1%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mileage Manager</title>
+</head>
+<body>
+    <div style="width: 30%; border-width: 1px; border-radius: 2%; border-style: solid; border-color: black;padding: 1% 1% 1% 1%; ">
         <div id="title">
             <h1>Mileage Customer</h1>
         </div>
-        <div style="border-width: 1px; border-radius: 2%; border-style: solid;  border-color: black; background-color:  blanchedalmond; padding: 5px;">
-        <h4 style="margin:0;">적립할 휴대폰 번호를 입력해주세요</h4>
+        <div style="border-width: 1px; border-radius: 2%; border-style: solid; border-color: black; background-color: blanchedalmond; padding: 5px; ">
+            <h4 style="margin: 0;">적립할 휴대폰 번호를 입력해주세요</h4>
         </div>
-        <div>
+        <div >
             <div>
-                Amount : <input id="amount" readonly style="background-color: aquamarine;"/> <button onclick="generateAmount()">check</button>
+            Amount : <input id="amount" readonly style="background-color: aquamarine;"/> <button  onclick="generateAmount()">check</button>
             </div>
             <div>
                 Phone Number : <input id="phoneNumberInput" readonly style="background-color: darkblue; color:chartreuse"/> <button onclick="save()">Save</button>
             </div>  
-            <div id="phoneNumberButtons">
-                <button class="numberButton">010</button>
-                <button class="numberButton">0</button>
-                <button class="numberButton">1</button>
-                <button class="numberButton">2</button>
-                <button class="numberButton">3</button>
-                <button class="numberButton">4</button>
-                <button class="numberButton">5</button>
-                <button class="numberButton">6</button>
-                <button class="numberButton">7</button>
-                <button class="numberButton">8</button>
-                <button class="numberButton">9</button>
-                <button class="backspace" style="background-color: lightpink;">X</button>
-                <button class="clear" style="background-color: cadetblue">C</button>
         </div>
+        <div id="phoneNumberButtons">
+            <button class="numberButton">010</button>
+            <button class="numberButton">0</button>
+            <button class="numberButton">1</button>
+            <button class="numberButton">2</button>
+            <button class="numberButton">3</button>
+            <button class="numberButton">4</button>
+            <button class="numberButton">5</button>
+            <button class="numberButton">6</button>
+            <button class="numberButton">7</button>
+            <button class="numberButton">8</button>
+            <button class="numberButton">9</button>
+            <button class="backspace" style="background-color: lightpink;">X</button>
+            <button class="clear" style="background-color: cadetblue">C</button>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 
 <script>
-    if(localStorage.getItem('mileageDB') == undefined) { // 파일로드시 로컬스토리지에 db가 없으면 생성
-        mileageDB = {'data ' : {}}
+    if(localStorage.getItem('mileageDB') == undefined) { // 파일로드 시 로컬스토리지에 db가 없으면 새 생성합니다.
+        mileageDB = {'data' : {}}
         saveDB(mileageDB)
     }
     var amount = document.getElementById("amount") // 가격(text)
     var amount_value // 가격(int)
-    var phoneNumberButtons = document.getElementById("phoneNumberButtons") // 휴대폰번호 생성 버튼
+    var phoneNumberButtons = document.getElementById("phoneNumberButtons") // 휴대폰 번호 생성 버튼
     var phoneNumberInput = document.getElementById("phoneNumberInput") // 휴대폰 번호가 보여지는 ELEMENT
-    
-    phoneNumberButtons.addEventListener("click", (e) => { // 휴대폰 번호 버튼 클릭시 이벤트
+
+    phoneNumberButtons.addEventListener("click", (e) => { // 휴대폰 번호 버튼 클릭 시 이벤트
         var targetClass = e.target.classList[0]
-        if(targetClass == "numberButton") { // 숫자 버튼이면 숫자를 텍스트에 붙여주고, 만약에 -가 들어어가야하는 인덱스(3,8)이면 -를 붙여줌
+        if(targetClass == "numberButton"){ // 숫자 버튼이면 숫자를 text에 붙여주고, 만약 -가 들어가야하는 인덱스(3,8)이면 -를 붙여줌
             if(phoneNumberInput.value.length == 3 || phoneNumberInput.value.length == 8){
-                phoneNumberInput.value+= "-"
+                phoneNumberInput.value+="-"
             }
-            phoneNumberInput.value += e.target.innerHTML
-        } 
+            phoneNumberInput.value += e.target.innerHTML 
+        }
         else if(targetClass == "backspace"){ // 지우기 이벤트
             if(phoneNumberInput.value.length > 0){
                 phoneNumberInput.value = phoneNumberInput.value.substring(0,phoneNumberInput.value.length-1)
             }
-
-    }
-    else if(targetClass == "clear"){ // 전체 지우기 이벤트
+        }
+        else if(targetClass == "clear"){ // 전체 지우기 이벤트
             phoneNumberInput.value = ""
         }
         e.stopPropagation()
     })
-    function generateAmount() { // 가격 랜덤생성
+
+    function generateAmount(){ // 가격 랜덤 생성
         amount_value = parseInt(((Math.floor(Math.random()*(100000-1000)) + 1000)/1000),10)*1000 
         amount.value = amoutFormatting(amount_value)
     }
-    function amoutFormatting(amount) { // 가격을 FORMATTING 100000 -> 100,000 형식으로 변환
-        return amount.toString().repalace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    function amoutFormatting(amount){ // 가격을 formatting 100000-> 100,000 형식
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    function loadDB() { // DB 로드 함수
+
+    function loadDB(){ // db 로드함수
         return JSON.parse(localStorage.getItem('mileageDB'))
     }
-    function saveDB(newDB) { // DB 저장함수
+
+    function saveDB(newDB){ // db 저장 함수
         localStorage.setItem('mileageDB',JSON.stringify(newDB))
     }
-    function save() { // 구매시 동작하는 함수
-        if(validatePhoneNumber() == ture){ 
-            var mileageDB = loadDB() 
-            var myData = mileageDB['date'][phoneNumberInput.value] // 휴대폰 번호에 맞는 데이터를 로드
-            if(myData == undefined){ // 휴대폰번호가 저장되어있지않는다면 새로운 휴대폰번호에대한 데이터를 생성
-                mileageDB['data'][phoneNumberInput.value] =
+
+    function save(){ // 구매 시 동작하는 함수
+        if(validatePhoneNumber() == true){
+            var mileageDB = loadDB() // db 로드
+            var myData = mileageDB['data'][phoneNumberInput.value] // 휴대폰 번호에 맞는 데이터를 로드
+            if(myData == undefined){ // 만약 휴대폰 번호가 등록되있지 않다면 해당 휴대폰 번호에 대한 데이터 틀을 생성
+                mileageDB['data'][phoneNumberInput.value] = 
                 {
-                    'log' : [], // 구매이력
-                    'meta' : { // 해당 번호에 대한 데이터
-                        'cnt' : 0, // 구매횟수
+                    'log' : [], // 구매 이력
+                    'meta' : { // 해당 번호에 대한 전반적인 데이터 
+                        'cnt' : 0, // 구매 횟수
                         'sum' : 0, // 총 구매 금액
                         'sumMileage' : 0, // 총 적립액
-                        'registerDate' : date.now() // 가입일
-                    } 
+                        'registerDate' : Date.now() // 가입일
+                    }
                 }
                 myData = mileageDB['data'][phoneNumberInput.value] // 저장
             }
             myData['log'].push( // 구매 이력 추가
-            {
+                {
                     'phoneNumber' : phoneNumberInput.value,
                     'amount' : amount_value,
                     'purchase_date' : Date.now()
                 }
-                )
+            )
             myData['meta']['cnt'] += 1
             myData['meta']['sum'] += amount_value
             myData['meta']['sumMileage'] += parseInt(amount_value*0.02, 10)
@@ -114,18 +118,20 @@
             alert("휴대전화 번호를 다시 입력해 주세요")
         }
     }
-    function alertMyData(phoneNumber){ // 구매 완료 후 뜨는 창
+    function alertMyData(phoneNumber){ // 구매 완료 후 뜨는 alert창
         var mileageDB = loadDB()
         var sumAmount = 0
         var cnt = 0
 
         alert("지금까지 " + amoutFormatting(mileageDB['data'][phoneNumber]['meta']['sum']) + "원 구매하셨고 " + mileageDB['data'][phoneNumber]['meta']['cnt'] + "번 적립되었습니다")
     }
-    function validatePhoneNumber(){ // 휴대폰 번호 확인 -> xxx-xxxx-xxxx 형태가 아니면 안됨
+    function validatePhoneNumber(){ // 휴대폰 번호 확인 -> xxx-xxxx-xxxx 형태가 아니면 return false
         var tmp = phoneNumberInput.value.split('-').join('');
         var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
         return regPhone.test(tmp);
     }
+    
+</script>
     
         
     
