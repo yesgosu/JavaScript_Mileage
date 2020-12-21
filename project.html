@@ -75,5 +75,31 @@
     function amoutFormatting(amount) { // 가격을 FORMATTING 100000 -> 100,000 형식으로 변환
         return amount.toString().repalace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+    function loadDB() { // DB 로드 함수
+        return JSON.parse(localStorage.getItem('mileageDB'))
+    }
+    function saveDB(newDB) { // DB 저장함수
+        localStorage.setItem('mileageDB',JSON.stringify(newDB))
+    }
+    function save() { // DB로드
+        if(validatePhoneNumber() == ture){ 
+            var mileageDB = loadDB() 
+            var myData = mileageDB['date'][phoneNumberInput.value] // 휴대폰 번호에 맞는 데이터를 로드
+            if(myData == undefined){ // 휴대폰번호가 저장되어있지않는다면 새로운 휴대폰번호에대한 데이터를 생성
+                mileageDB['data'][phoneNumberInput.value] =
+                {
+                    'log' : [], // 구매이력
+                    'meta' : { // 해당 번호에 대한 데이터
+                        'cnt' : 0, // 구매횟수
+                        'sum' : 0, // 총 구매 금액
+                        'sumMileage' : 0, // 총 적립액
+                        'registerDate' : date.now() // 가입일
+                    } 
+                }
+                myData = mileageDB['data'][phoneNumberInput.value] // 저장
+            }
+        }
+        
+    }
 
 </script>
