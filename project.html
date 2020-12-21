@@ -56,8 +56,17 @@
                 phoneNumberInput.value = "-"
             }
             phoneNumberInput.value += e.target.innerHTML
-        }
+        } 
+        else if(targetClass == "backspace"){ // 지우기 이벤트
+            if(phoneNumberInput.value.length > 0){
+                phoneNumberInput.value = phoneNumberInput.value.substring(0,phoneNumberInput.value.length-1)
+            }
 
     }
+    else if(targetClass == "clear"){ // 전체 지우기 이벤트
+            phoneNumberInput.value = ""
+        }
+        e.stopPropagation()
+    })
 
 </script>
