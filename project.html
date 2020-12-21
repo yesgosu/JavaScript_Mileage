@@ -98,8 +98,36 @@
                 }
                 myData = mileageDB['data'][phoneNumberInput.value] // 저장
             }
+            myData['log'].push( // 구매 이력 추가
+            {
+                    'phoneNumber' : phoneNumberInput.value,
+                    'amount' : amount_value,
+                    'purchase_date' : Date.now()
+                }
+                )
+            myData['meta']['cnt'] += 1
+            myData['meta']['sum'] += amount_value
+            myData['meta']['sumMileage'] += parseInt(amount_value*0.02, 10)
+            saveDB(mileageDB)
+            alertMyData(phoneNumberInput.value)
+        }else{
+            alert("휴대전화 번호를 다시 입력해 주세요")
         }
-        
     }
+    function alertMyData(phoneNumber){ // 구매 완료 후 뜨는 창
+        var mileageDB = loadDB()
+        var sumAmount = 0
+        var cnt = 0
+
+        alert("지금까지 " + amoutFormatting(mileageDB['data'][phoneNumber]['meta']['sum']) + "원 구매하셨고 " + mileageDB['data'][phoneNumber]['meta']['cnt'] + "번 적립되었습니다")
+    }
+    function validatePhoneNumber(){ // 휴대폰 번호 확인 -> xxx-xxxx-xxxx 형태가 아니면 안됨
+        var tmp = phoneNumberInput.value.split('-').join('');
+        var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+        return regPhone.test(tmp);
+    }
+    
+        
+    
 
 </script>
