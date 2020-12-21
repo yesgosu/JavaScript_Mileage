@@ -68,5 +68,9 @@
         }
         e.stopPropagation()
     })
+    function generateAmount() { // 가격 랜덤생성
+        amount_value = parseInt(((Math.floor(Math.random()*(100000-1000))+1000)/1000),10)*1000
+        amount.value = amoutFormatting(amount_value)
+    }
 
 </script>
