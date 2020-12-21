@@ -81,7 +81,7 @@
     function saveDB(newDB) { // DB 저장함수
         localStorage.setItem('mileageDB',JSON.stringify(newDB))
     }
-    function save() { // DB로드
+    function save() { // 구매시 동작하는 함수
         if(validatePhoneNumber() == ture){ 
             var mileageDB = loadDB() 
             var myData = mileageDB['date'][phoneNumberInput.value] // 휴대폰 번호에 맞는 데이터를 로드
