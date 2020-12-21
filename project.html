@@ -72,5 +72,8 @@
         amount_value = parseInt(((Math.floor(Math.random()*(100000-1000))+1000)/1000),10)*1000
         amount.value = amoutFormatting(amount_value)
     }
+    function amoutFormatting(amount) { // 가격을 FORMATTING 100000 -> 100,000 형식으로 변환
+        return amount.toString().repalace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 </script>
