@@ -38,3 +38,10 @@
         </div>
     </body>
 </html>
+
+<script>
+    if(localStorage.getItem('mileageDB') == undefined) { // 파일로드시 로컬스토리지에 db가 없으면 생성
+        mileageDB = {'data ' : {}}
+        saveDB(mileageDB)
+    }
+</script>
