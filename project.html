@@ -44,4 +44,20 @@
         mileageDB = {'data ' : {}}
         saveDB(mileageDB)
     }
+    var amount = document.getElementById("amount") // 가격(text)
+    var amount_value // 가격(int)
+    var phoneNumberButtons = document.getElementById("phoneNumberButtons") // 휴대폰번호 생성 버튼
+    var phoneNumberInput = document.getElementById("phoneNumber Input") // 휴대폰 번호가 보여지는 ELEMENT
+    
+    phoneNumberButtons.addEventListener("click", (e) => { // 휴대폰 번호 버튼 클릭시 이벤트
+        var targetClass = e.target.classList[0]
+        if(targetClass == "numberButton") { // 숫자 버튼이면 숫자를 텍스트에 붙여주고, 만약에 -가 들어어가야하는 인덱스(3,8)이면 -를 붙여줌
+            if(phoneNumberInput.value.length == 3 || phoneNumberInput.value.length == 8){
+                phoneNumberInput.value = "-"
+            }
+            phoneNumberInput.value += e.target.innerHTML
+        }
+
+    }
+
 </script>
