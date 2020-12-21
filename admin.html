@@ -33,3 +33,39 @@
     </div>
 </body>
 </html>
+
+<script>
+    if(localStorage.getItem('mileageDB') == undefined){
+        mileageDB = {'data ': []}
+        saveDB(mileageDB)
+    }
+    loadMataData()
+    loadLog()
+
+    function loadMataData() { // db에 등록된 모든 메타 데이터를 로드하여 화면 기준 좌측 테이블에 값을 넣어줌
+        var table= document.getElementById("meta")
+        var mileageDB = loadDB()
+        Object.keys(mileageDB['data']).map((key, index) => {
+            console.log(mileageDB['data'][key])
+            var tr = document.createElement('tr')
+            var phoneNumberTd = document.createElement('td')
+            var sumAmountTd = document.createElement('td')
+            var mileageTd = document.createElement('td')
+            var cntTd = document.createElement('td')
+            var registerDateTd = document.createElement('td')
+            phoneNumberTd.innerHTML = key
+            sumAmountTd.innerHTML = amoutFormatting(mileageDB['data'][key]['meta']['sum'])
+            mileageTd.innerHTML = amoutFormatting(mileageDB['data'][key]['meta']['sumMileage'])
+            cntTd.innerHTML = mileageDB['data'][key]['meta']['cnt']
+            registerDateTd.innerHTML = new Date(mileageDB['data'][key]['meta']['registerDate'])
+            tr.append(phoneNumberTd)
+            tr.append(sumAmountTd)
+            tr.append(mileageTd)
+
+
+            tr.append(cntTd)
+            tr.append(registerDateTd)
+            table.appendChild(tr)
+        })
+    }
+</script>
