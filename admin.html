@@ -68,4 +68,27 @@
             table.appendChild(tr)
         })
     }
+
+    // 여까지함 
+    function loadLog(){ // 구매이력을 로드하여 화면 기준 우측에 테이블에 값을 넣어줌
+        var table = document.getElementById("log")
+        var mileageDB = loadDB()
+        Object.keys(mileageDB['data']).map((key, index) => {
+            for(var i = 0 ; i < mileageDB['data'][key]['log'].length ; i++){
+                var tr = document.createElement('tr')
+                var phoneNumberTd = document.createElement('td')
+                var amountTd = document.createElement('td')
+                var purchaseDateTd = document.createElement('td')
+                phoneNumberTd.innerHTML = key
+                amountTd.innerHTML = amoutFormatting(mileageDB['data'][key]['log'][i]['amount'])
+                purchaseDateTd.innerHTML = new Date(mileageDB['data'][key]['log'][i]['purchase_date'])
+                tr.append(phoneNumberTd)
+                tr.append(amountTd)
+                tr.append(purchaseDateTd)
+                table.appendChild(tr)
+            }
+
+        })
+
+    }
 </script>
