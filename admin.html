@@ -91,4 +91,11 @@
         })
 
     }
+    function amoutFormatting(amount){ // 가격을 formatting 100000-> 100,000 형식
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function loadDB(){ // db로드
+        return JSON.parse(localStorage.getItem('mileageDB'))
+    }
 </script>
