@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +43,7 @@
 <script>
     if(localStorage.getItem('mileageDB') == undefined) { // 파일로드 시 로컬스토리지에 db가 없으면 새 생성합니다.
         mileageDB = {'data' : {}}
-        saveDB(mileageDB)
+        saveDB(mileageDB) // 코드오류로인한 새로운 코드 및 커밋수정
     }
     var amount = document.getElementById("amount") // 가격(text)
     var amount_value // 가격(int)
